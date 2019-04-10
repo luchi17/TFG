@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0933E110225E33C300B19B86 /* DoctorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0933E10F225E33C300B19B86 /* DoctorViewController.swift */; };
 		09B1EE9A22575192006DF813 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B1EE9922575192006DF813 /* AppDelegate.swift */; };
 		09B1EE9C22575192006DF813 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B1EE9B22575192006DF813 /* HomeViewController.swift */; };
 		09B1EEA322575194006DF813 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09B1EEA222575194006DF813 /* Assets.xcassets */; };
 		09B1EEA622575194006DF813 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09B1EEA422575194006DF813 /* LaunchScreen.storyboard */; };
-		09B1EECC225B9A9A006DF813 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 09B1EECB225B9A9A006DF813 /* Default-568h@2x.png */; };
 		09D35081225E121B0052BF88 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		09D35082225E121B0052BF88 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		09D35084225E1EE70052BF88 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09D35083225E1EE70052BF88 /* Main.storyboard */; };
@@ -32,13 +32,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0933E10F225E33C300B19B86 /* DoctorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoctorViewController.swift; sourceTree = "<group>"; };
 		09B1EE9622575192006DF813 /* Babydoc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Babydoc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09B1EE9922575192006DF813 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		09B1EE9B22575192006DF813 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		09B1EEA222575194006DF813 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		09B1EEA522575194006DF813 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		09B1EEA722575194006DF813 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		09B1EECB225B9A9A006DF813 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		09D35083225E1EE70052BF88 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		4567B8F8598068BAFC4C0903 /* Pods-Babydoc.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Babydoc.debug.xcconfig"; path = "Target Support Files/Pods-Babydoc/Pods-Babydoc.debug.xcconfig"; sourceTree = "<group>"; };
 		65D34E0072BE79A14FC1B9F6 /* Pods_Babydoc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Babydoc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -60,7 +60,6 @@
 		09B1EE8D22575191006DF813 = {
 			isa = PBXGroup;
 			children = (
-				09B1EECB225B9A9A006DF813 /* Default-568h@2x.png */,
 				09B1EE9822575192006DF813 /* Babydoc */,
 				09B1EE9722575192006DF813 /* Products */,
 				33E1B556E9004B5BCC37F87B /* Pods */,
@@ -109,6 +108,7 @@
 			children = (
 				09B1EE9922575192006DF813 /* AppDelegate.swift */,
 				09B1EE9B22575192006DF813 /* HomeViewController.swift */,
+				0933E10F225E33C300B19B86 /* DoctorViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -203,7 +203,6 @@
 				09D35082225E121B0052BF88 /* (null) in Resources */,
 				09B1EEA322575194006DF813 /* Assets.xcassets in Resources */,
 				09D35084225E1EE70052BF88 /* Main.storyboard in Resources */,
-				09B1EECC225B9A9A006DF813 /* Default-568h@2x.png in Resources */,
 				09D35081225E121B0052BF88 /* (null) in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -259,6 +258,7 @@
 			files = (
 				09B1EE9A22575192006DF813 /* AppDelegate.swift in Sources */,
 				09B1EE9C22575192006DF813 /* HomeViewController.swift in Sources */,
+				0933E110225E33C300B19B86 /* DoctorViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

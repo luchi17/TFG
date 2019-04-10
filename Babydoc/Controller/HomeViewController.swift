@@ -10,9 +10,9 @@ import UIKit
 import Charts
 
 class HomeViewController: UIViewController {
-
-    var iosData = PieChartDataEntry(value: 0)
-    var macData = PieChartDataEntry(value: 0)
+ 
+    var sleepData = PieChartDataEntry(value: 0)
+    var rest = PieChartDataEntry(value: 0)
     var numberofDownloads = [PieChartDataEntry]()
 
     @IBOutlet weak var piechart: PieChartView!
@@ -24,14 +24,18 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
        
-        piechart.chartDescription?.text = "SALUDOS"
-        iosData.label = "ios"
-        macData.label="mac"
-        iosData.value = 30
-        macData.value = 70
-        numberofDownloads = [iosData,macData]
+        //piechart.chartDescription?.text = "Sleep"
+        sleepData.label = "sleep"
+        rest.label = "rest"
+        sleepData.value = 1/24
+        rest.value = 23/24
+        piechart.drawEntryLabelsEnabled = false
+        piechart.drawMarkers = false
+        piechart.usePercentValuesEnabled = false
+        piechart.drawCenterTextEnabled = false
+        numberofDownloads = [sleepData, rest]
         updatechartData()
-        //
+       
        
 
     }
@@ -40,14 +44,21 @@ class HomeViewController: UIViewController {
         let chartdataset = PieChartDataSet(values: numberofDownloads, label: nil)
         let chartdata = PieChartData(dataSet: chartdataset)
         //give some colors
-        let colors = [UIColor.blue,UIColor.red]
+        let colors = [UIColor.blue,UIColor.lightGray]
         chartdataset.colors = colors
         piechart.data = chartdata
 
 
     }
-  
 
-    }
+  
+    @IBAction func didSwipetoDoctor(_ sender: UISwipeGestureRecognizer) {
+        if sender.direction == UISwipeGestureRecognizer.Direction.left && sender.state == .ended
+        
+        {
+            performSegue(withIdentifier: "goToDoctor", sender: nil)
+        }
+        
+    }}
 
 
