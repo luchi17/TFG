@@ -9,7 +9,8 @@
 import UIKit
 import Charts
 
-class HomeViewController: UIViewController {
+
+class HomeViewController: UIViewController{
  
     var sleepData = PieChartDataEntry(value: 0)
     var rest = PieChartDataEntry(value: 0)
@@ -35,6 +36,7 @@ class HomeViewController: UIViewController {
         piechart.drawCenterTextEnabled = false
         numberofDownloads = [sleepData, rest]
         updatechartData()
+     
        
        
 
@@ -50,15 +52,17 @@ class HomeViewController: UIViewController {
 
 
     }
-
-  
-    @IBAction func didSwipetoDoctor(_ sender: UISwipeGestureRecognizer) {
-        if sender.direction == UISwipeGestureRecognizer.Direction.left && sender.state == .ended
-        
-        {
-            performSegue(withIdentifier: "goToDoctor", sender: nil)
-        }
-        
-    }}
+   
+//  
+//    @IBAction func didSwipetoDoctor(_ sender: UISwipeGestureRecognizer) {
+//        if sender.direction == UISwipeGestureRecognizer.Direction.left && sender.state == .ended
+//        
+//        {
+//            performSegue(withIdentifier: "goToDoctor", sender: nil)
+//        }
+//        
+//    }
+//    
+}
 
 
