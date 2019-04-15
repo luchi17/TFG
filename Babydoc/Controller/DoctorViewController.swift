@@ -12,13 +12,6 @@ import UIKit
 class DoctorViewController : UIViewController {
     
    
-    
-//    @IBAction func didSwipetoHome(_ sender:UISwipeGestureRecognizer ) {
-//
-//        if sender.direction == UISwipeGestureRecognizer.Direction.right && sender.state == .ended{
-//            performSegue(withIdentifier: "goToHome", sender: nil)
-//        }
-//    }
 
     
 

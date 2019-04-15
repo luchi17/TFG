@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0933E110225E33C300B19B86 /* DoctorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0933E10F225E33C300B19B86 /* DoctorViewController.swift */; };
+		093EDA472264F06800538860 /* CustomCellHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093EDA452264F06800538860 /* CustomCellHome.swift */; };
+		093EDA482264F06800538860 /* CustomCellHome.xib in Resources */ = {isa = PBXBuildFile; fileRef = 093EDA462264F06800538860 /* CustomCellHome.xib */; };
 		09B1EE9A22575192006DF813 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B1EE9922575192006DF813 /* AppDelegate.swift */; };
 		09B1EE9C22575192006DF813 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B1EE9B22575192006DF813 /* HomeViewController.swift */; };
 		09B1EEA322575194006DF813 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09B1EEA222575194006DF813 /* Assets.xcassets */; };
@@ -33,6 +35,8 @@
 
 /* Begin PBXFileReference section */
 		0933E10F225E33C300B19B86 /* DoctorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoctorViewController.swift; sourceTree = "<group>"; };
+		093EDA452264F06800538860 /* CustomCellHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCellHome.swift; sourceTree = "<group>"; };
+		093EDA462264F06800538860 /* CustomCellHome.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomCellHome.xib; sourceTree = "<group>"; };
 		09B1EE9622575192006DF813 /* Babydoc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Babydoc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09B1EE9922575192006DF813 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		09B1EE9B22575192006DF813 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -57,6 +61,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		093EDA492264F09000538860 /* Custom Cell */ = {
+			isa = PBXGroup;
+			children = (
+				093EDA452264F06800538860 /* CustomCellHome.swift */,
+				093EDA462264F06800538860 /* CustomCellHome.xib */,
+			);
+			path = "Custom Cell";
+			sourceTree = "<group>";
+		};
 		09B1EE8D22575191006DF813 = {
 			isa = PBXGroup;
 			children = (
@@ -99,6 +112,7 @@
 			children = (
 				09B1EEA422575194006DF813 /* LaunchScreen.storyboard */,
 				09D35083225E1EE70052BF88 /* Main.storyboard */,
+				093EDA492264F09000538860 /* Custom Cell */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -200,6 +214,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				09B1EEA622575194006DF813 /* LaunchScreen.storyboard in Resources */,
+				093EDA482264F06800538860 /* CustomCellHome.xib in Resources */,
 				09D35082225E121B0052BF88 /* (null) in Resources */,
 				09B1EEA322575194006DF813 /* Assets.xcassets in Resources */,
 				09D35084225E1EE70052BF88 /* Main.storyboard in Resources */,
@@ -259,6 +274,7 @@
 				09B1EE9A22575192006DF813 /* AppDelegate.swift in Sources */,
 				09B1EE9C22575192006DF813 /* HomeViewController.swift in Sources */,
 				0933E110225E33C300B19B86 /* DoctorViewController.swift in Sources */,
+				093EDA472264F06800538860 /* CustomCellHome.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

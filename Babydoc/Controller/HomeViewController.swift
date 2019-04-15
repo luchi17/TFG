@@ -7,24 +7,45 @@
 //
 
 import UIKit
+import ChameleonFramework
 
 
-class HomeViewController: UIViewController{
+// MARK: - Home View Controller
+
+
+class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        <#code#>
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        <#code#>
+    }
+    
 
     
     @IBOutlet weak var sleep: ActionView!
+    @IBOutlet weak var sleepLabel: UILabel!
     
     @IBOutlet weak var feed: ActionView!
+    @IBOutlet weak var feedLabel: UILabel!
     
-    @IBOutlet weak var symptom: ActionView!
     
+    @IBOutlet weak var diaper: ActionView!
+    @IBOutlet weak var diaperLabel: UILabel!
     
     @IBOutlet weak var medication: ActionView!
+    @IBOutlet weak var medicationLabel: UILabel!
     
+    
+    @IBOutlet weak var grid: GridView!
+    
+    @IBOutlet weak var taskTableView: UITableView!
     
     override var prefersStatusBarHidden: Bool {
         return true
     }
+  
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,31 +55,43 @@ class HomeViewController: UIViewController{
         sleep.layer.masksToBounds = true
         feed.layer.cornerRadius = 6
         feed.layer.masksToBounds = true
-        symptom.layer.cornerRadius = 6
-        symptom.layer.masksToBounds = true
+        diaper.layer.cornerRadius = 6
+        diaper.layer.masksToBounds = true
         medication.layer.cornerRadius = 6
         medication.layer.masksToBounds = true
-
         
+        sleep.backgroundColor = sleep.sleepcolor.withAlphaComponent(CGFloat(0.2))
+        feed.backgroundColor = feed.feedcolor.withAlphaComponent(CGFloat(0.2))
+        diaper.backgroundColor = diaper.diapercolor.withAlphaComponent(CGFloat(0.2))
+        medication.backgroundColor = medication.medicationcolor.withAlphaComponent(CGFloat(0.2))
+        
+        sleepLabel.textColor = sleep.sleepcolor
+        feedLabel.textColor = feed.feedcolor
+        diaperLabel.textColor = diaper.diapercolor
+        medicationLabel.textColor = medication.medicationcolor
+        
+        //grid.backgroundColor = UIColor.init(hexString: "EBEBEB", withAlpha: 0.01)!
+        
+        //DATABASE RELATED
+        taskTableView.delegate = self
+        taskTableView.dataSource = self
     }
-
-   
-//  
-//    @IBAction func didSwipetoDoctor(_ sender: UISwipeGestureRecognizer) {
-//        if sender.direction == UISwipeGestureRecognizer.Direction.left && sender.state == .ended
-//        
-//        {
-//            performSegue(withIdentifier: "goToDoctor", sender: nil)
-//        }
-//        
-//    }
-//    
+ 
 }
+
+
+// MARK: - Action View
+
+
 class ActionView: UIView
     
 {
     
-    
+    var sleepcolor :UIColor = UIColor.init(hexString: "2772db")! //2772db
+    var feedcolor :UIColor = UIColor.init(hexString: "85ef47")! //12cc94
+    var diapercolor :UIColor = UIColor.init(hexString: "37D4C0")! //85ef47, 29cdb5, 
+    var medicationcolor :UIColor = UIColor.init(hexString: "F81B9A")!
+ 
     
     override func draw(_ rect: CGRect)
     {
@@ -68,30 +101,30 @@ class ActionView: UIView
         if self.tag == 0{
             
             //imagine sleep times of : 0-12  and 12:30 to 13:30 and 15-17
-            fillColor(start : (0*width)/day ,with: .blue, width: (2*width)/day)
-            fillColor(start : ((12+0.5)*width)/day ,with: .blue, width: (1*width)/day)
-            fillColor(start : (15*width)/day ,with: .blue, width: (2*width)/day)
+            fillColor(start : (0*width)/day ,with: sleepcolor, width: (2*width)/day)
+            fillColor(start : ((12+0.5)*width)/day ,with: sleepcolor , width: (1*width)/day)
+            fillColor(start : (15*width)/day ,with: sleepcolor , width: (2*width)/day)
             
         }
             //FEED
         else if self.tag == 1{
+          
             
-            
-            self.fillColor(start : (12*width)/day, with: .magenta, width: 4*width/day)
-            self.fillColor(start : (22*width)/day, with: .magenta, width: 2*width/day)
+            self.fillColor(start : (12*width)/day, with: feedcolor, width: 4*width/day)
+            self.fillColor(start : (22*width)/day, with: feedcolor, width: 2*width/day)
         }
-            //SYMPTOM
+            //DIAPER
         else if self.tag == 2{
             
-            self.fillColor(start : (10*width)/day, with: .cyan, width: 0.2*width/day)
-            self.fillColor(start : (20*width)/day, with: .cyan, width: 0.3*width/day)
+            self.fillColor(start : (10*width)/day, with: diapercolor , width: 0.2*width/day)
+            self.fillColor(start : (20*width)/day, with: diapercolor, width: 0.3*width/day)
         }
             //MEDICATION
         else if self.tag == 3{
             
-        
-            self.fillColor(start : (8*width)/day, with: .purple, width: 0.2*width/day)
-            self.fillColor(start : (16*width)/day, with: .purple, width: 0.2*width/day)
+    
+            self.fillColor(start : (8*width)/day, with: medicationcolor, width: 0.2*width/day)
+            self.fillColor(start : (16*width)/day, with: medicationcolor, width: 0.2*width/day)
         }
         
         
@@ -110,9 +143,13 @@ class ActionView: UIView
 
 
 }
+
+// MARK: - Grid View
+
 class GridView: UIView
 {
     private var path = UIBezierPath()
+    //private var pathline = UIBezierPath()
     fileprivate var gridWidthMultiple: CGFloat
     {
         return 4
@@ -139,7 +176,7 @@ class GridView: UIView
     fileprivate func drawGrid()
     {
         path = UIBezierPath()
-        path.lineWidth = 0.1
+        path.lineWidth = 0.15
         
         for index in 0...Int(gridWidthMultiple) 
         {
@@ -161,6 +198,7 @@ class GridView: UIView
         UIColor.black.setStroke()
         path.stroke()
     }
+  
 }
 
 

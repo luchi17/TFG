@@ -8,4 +8,5 @@ target 'Babydoc' do
   # Pods for Babydoc
 pod 'Charts'
 pod 'RealmSwift'
+pod 'ChameleonFramework/Swift', :git => 'https://github.com/ViccAlexander/Chameleon.git'
 end
