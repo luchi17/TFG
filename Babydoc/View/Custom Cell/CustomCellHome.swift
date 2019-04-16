@@ -11,16 +11,20 @@ import UIKit
 class CustomCellHome: UITableViewCell {
 
     
-    @IBOutlet weak var icon: UIImageView!
-    @IBOutlet weak var action: UILabel!
+    @IBOutlet var actionImage: UIImageView!
     
-    @IBOutlet weak var dateTitle: UILabel!
-    @IBOutlet weak var dateField: UILabel!
-    @IBOutlet weak var noteTitle: UILabel!
+    @IBOutlet var actionName: UILabel!
     
-    @IBOutlet weak var noteField: UITextField!
+    @IBOutlet var quantityTitle: UILabel!
+    @IBOutlet var quantityField: UILabel!
     
+    @IBOutlet var dateTitle: UILabel!
+    @IBOutlet var dateField: UILabel!
     
+    @IBOutlet var noteTitle: UILabel!
+    @IBOutlet var noteField: UITextField!
+    
+    @IBOutlet var inforDisplay: UIView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code goes here

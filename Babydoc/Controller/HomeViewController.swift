@@ -12,17 +12,7 @@ import ChameleonFramework
 
 // MARK: - Home View Controller
 
-
 class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        <#code#>
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
-    }
-    
-
     
     @IBOutlet weak var sleep: ActionView!
     @IBOutlet weak var sleepLabel: UILabel!
@@ -40,6 +30,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBOutlet weak var grid: GridView!
     
+
     @IBOutlet weak var taskTableView: UITableView!
     
     override var prefersStatusBarHidden: Bool {
@@ -75,6 +66,42 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         //DATABASE RELATED
         taskTableView.delegate = self
         taskTableView.dataSource = self
+        taskTableView.separatorStyle = .none
+        //registering customcell here:
+        taskTableView.register(UINib(nibName: "CustomCellHome", bundle: nil), forCellReuseIdentifier: "customMessageCell")
+       configureTableView()
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+      return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        //FOR EACH ROW, WHAT WE WANT THE CELLS TO LOOK LIKE
+        //WE HAVE TO SPECIFY ALSO THE CLASS OF CELL TO BE ABLE TO USE THE PROPERTIES OF THAT CLASS
+         // let cell = tableView.dequeueReusableCell(withIdentifier: "customMessageCell", for: indexPath) as! CustomCellHome
+          let cell2 = tableView.dequeueReusableCell(withIdentifier: "customMessageCell") as! CustomCellHome
+          cell2.actionName.text = "medication"
+          cell2.dateField.text = "24/12/2012"
+          cell2.dateTitle.text = "date"
+          cell2.quantityTitle.text = "quantity"
+          cell2.quantityField.text = "30 mg"
+          cell2.noteField.text = "na"
+          cell2.noteTitle.text = "note"
+          cell2.actionImage.image = UIImage(named: "icons8-pill-filled-48")
+        
+          cell2.inforDisplay.bounds.width
+        
+        
+        
+        
+        
+        return cell2
+    }
+    func configureTableView(){
+        taskTableView.rowHeight = UITableView.automaticDimension
+       taskTableView.estimatedRowHeight = 120.0 //average message, if it is not correct, it will actually
+        //resize and use the constraints instead
     }
  
 }
@@ -147,6 +174,7 @@ class ActionView: UIView
 // MARK: - Grid View
 
 class GridView: UIView
+    
 {
     private var path = UIBezierPath()
     //private var pathline = UIBezierPath()

@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0933E110225E33C300B19B86 /* DoctorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0933E10F225E33C300B19B86 /* DoctorViewController.swift */; };
-		093EDA472264F06800538860 /* CustomCellHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093EDA452264F06800538860 /* CustomCellHome.swift */; };
-		093EDA482264F06800538860 /* CustomCellHome.xib in Resources */ = {isa = PBXBuildFile; fileRef = 093EDA462264F06800538860 /* CustomCellHome.xib */; };
 		09B1EE9A22575192006DF813 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B1EE9922575192006DF813 /* AppDelegate.swift */; };
 		09B1EE9C22575192006DF813 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B1EE9B22575192006DF813 /* HomeViewController.swift */; };
 		09B1EEA322575194006DF813 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09B1EEA222575194006DF813 /* Assets.xcassets */; };
@@ -17,6 +15,8 @@
 		09D35081225E121B0052BF88 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		09D35082225E121B0052BF88 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		09D35084225E1EE70052BF88 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09D35083225E1EE70052BF88 /* Main.storyboard */; };
+		09E27C492265E07F0022EE1B /* CustomCellHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E27C472265E07F0022EE1B /* CustomCellHome.swift */; };
+		09E27C4A2265E07F0022EE1B /* CustomCellHome.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09E27C482265E07F0022EE1B /* CustomCellHome.xib */; };
 		52AA07FA597464BB746ACBA8 /* Pods_Babydoc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65D34E0072BE79A14FC1B9F6 /* Pods_Babydoc.framework */; };
 /* End PBXBuildFile section */
 
@@ -35,8 +35,6 @@
 
 /* Begin PBXFileReference section */
 		0933E10F225E33C300B19B86 /* DoctorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoctorViewController.swift; sourceTree = "<group>"; };
-		093EDA452264F06800538860 /* CustomCellHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCellHome.swift; sourceTree = "<group>"; };
-		093EDA462264F06800538860 /* CustomCellHome.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomCellHome.xib; sourceTree = "<group>"; };
 		09B1EE9622575192006DF813 /* Babydoc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Babydoc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09B1EE9922575192006DF813 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		09B1EE9B22575192006DF813 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -44,6 +42,8 @@
 		09B1EEA522575194006DF813 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		09B1EEA722575194006DF813 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09D35083225E1EE70052BF88 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		09E27C472265E07F0022EE1B /* CustomCellHome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCellHome.swift; sourceTree = "<group>"; };
+		09E27C482265E07F0022EE1B /* CustomCellHome.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomCellHome.xib; sourceTree = "<group>"; };
 		4567B8F8598068BAFC4C0903 /* Pods-Babydoc.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Babydoc.debug.xcconfig"; path = "Target Support Files/Pods-Babydoc/Pods-Babydoc.debug.xcconfig"; sourceTree = "<group>"; };
 		65D34E0072BE79A14FC1B9F6 /* Pods_Babydoc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Babydoc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D3F31CCF0ECE0C2F3EC5670 /* Pods-Babydoc.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Babydoc.release.xcconfig"; path = "Target Support Files/Pods-Babydoc/Pods-Babydoc.release.xcconfig"; sourceTree = "<group>"; };
@@ -64,8 +64,8 @@
 		093EDA492264F09000538860 /* Custom Cell */ = {
 			isa = PBXGroup;
 			children = (
-				093EDA452264F06800538860 /* CustomCellHome.swift */,
-				093EDA462264F06800538860 /* CustomCellHome.xib */,
+				09E27C472265E07F0022EE1B /* CustomCellHome.swift */,
+				09E27C482265E07F0022EE1B /* CustomCellHome.xib */,
 			);
 			path = "Custom Cell";
 			sourceTree = "<group>";
@@ -214,7 +214,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				09B1EEA622575194006DF813 /* LaunchScreen.storyboard in Resources */,
-				093EDA482264F06800538860 /* CustomCellHome.xib in Resources */,
+				09E27C4A2265E07F0022EE1B /* CustomCellHome.xib in Resources */,
 				09D35082225E121B0052BF88 /* (null) in Resources */,
 				09B1EEA322575194006DF813 /* Assets.xcassets in Resources */,
 				09D35084225E1EE70052BF88 /* Main.storyboard in Resources */,
@@ -274,7 +274,7 @@
 				09B1EE9A22575192006DF813 /* AppDelegate.swift in Sources */,
 				09B1EE9C22575192006DF813 /* HomeViewController.swift in Sources */,
 				0933E110225E33C300B19B86 /* DoctorViewController.swift in Sources */,
-				093EDA472264F06800538860 /* CustomCellHome.swift in Sources */,
+				09E27C492265E07F0022EE1B /* CustomCellHome.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

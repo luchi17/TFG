@@ -122,7 +122,7 @@
                                                 <color key="separatorColor" red="0.18039215689999999" green="0.80000000000000004" blue="0.4431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="sectionIndexBackgroundColor" red="0.23137254900000001" green="0.70588235290000001" blue="0.75686274509999996" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <prototypes>
-                                                    <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CellTasks" id="pk3-R7-MAD" userLabel="Cell Tasks">
+                                                    <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CustomCellHome" id="pk3-R7-MAD" userLabel="CustomCell">
                                                         <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pk3-R7-MAD" id="c74-G3-jfA">
@@ -308,16 +308,12 @@
                         <outlet property="medicationLabel" destination="OnQ-GV-7Dd" id="nKj-9l-R5K"/>
                         <outlet property="sleep" destination="rnc-Hl-aqD" id="vJp-xt-vAR"/>
                         <outlet property="sleepLabel" destination="3vA-wp-aau" id="qay-bx-mnn"/>
-                        <outlet property="tableTasks" destination="Ehf-Xn-gf5" id="MpT-Pd-OBf"/>
+                        <outlet property="taskTableView" destination="Ehf-Xn-gf5" id="EIH-w8-oPo"/>
                         <segue destination="4sw-cP-vtX" kind="show" identifier="goToDoctor" id="xiR-sz-N3Q"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
-                <swipeGestureRecognizer direction="left" id="fKM-X3-QGX">
-                    <connections>
-                        <action selector="didSwipetoDoctor:" destination="8rJ-Kc-sve" id="cUN-NQ-WJv"/>
-                    </connections>
-                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="left" id="fKM-X3-QGX"/>
             </objects>
             <point key="canvasLocation" x="748.125" y="359.15492957746477"/>
         </scene>
