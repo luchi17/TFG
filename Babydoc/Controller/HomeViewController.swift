@@ -18,7 +18,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
   
     @IBOutlet weak var feed: ActionView!
   
-    @IBOutlet weak var scrollView: UIScrollView!
+   // @IBOutlet weak var scrollView: UIScrollView!
     
     @IBOutlet weak var diaper: ActionView!
 
@@ -39,9 +39,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        taskTableView.addGestureRecognizer(UISwipeGestureRecognizer(target: self, action: #selector(tableViewSwiped)))
-        scrollView.addGestureRecognizer(UISwipeGestureRecognizer(target: self, action: #selector(scrollViewSwiped)))
+ 
 
         last24hours.textColor = UIColor.flatGray
         upcomingTasks.textColor = UIColor.flatGray
@@ -68,20 +66,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         taskTableView.separatorStyle = .none
         //registering customcell here:
         taskTableView.register(UINib(nibName: "CustomCellHome", bundle: nil), forCellReuseIdentifier: "customMessageCell")
-       configureTableView()
+       //configureTableView()
     }
-    @objc func tableViewSwiped(){
-        scrollView.isScrollEnabled = false
-        taskTableView.isScrollEnabled = true
-    }
-    
-    @objc func scrollViewSwiped(){
-        scrollView.isScrollEnabled = true
-        taskTableView.isScrollEnabled = false
-    }
+ 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-      return 2
+      return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -89,9 +79,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         //WE HAVE TO SPECIFY ALSO THE CLASS OF CELL TO BE ABLE TO USE THE PROPERTIES OF THAT CLASS
          // let cell = tableView.dequeueReusableCell(withIdentifier: "customMessageCell", for: indexPath) as! CustomCellHome
           let cell = tableView.dequeueReusableCell(withIdentifier: "customMessageCell") as! CustomCellHome
-        
+    
             cell.inforDisplay.layer.borderColor = UIColor.flatGray.cgColor
             cell.inforDisplay.layer.borderWidth = 0.8
+           // cell.inforDisplay.layer.cornerRadius = 6
+            //cell.inforDisplay.layer.shadowRadius = 10
+            cell.inforDisplay.layer.masksToBounds = true
             //cell.inforDisplay.layer.backgroundColor = medication.medicationcolor.withAlphaComponent(CGFloat(0.05)).cgColor
           cell.actionName.text = "Medication"
           cell.actionName.textColor = medication.medicationcolor
@@ -126,29 +119,67 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
 //
 //        }
         
-//        let notefieldheight = cell.noteField.optimalHeight
-//        cell.noteField.frame = CGRect(x: cell.noteField.frame.origin.x, y: cell.noteField.frame.origin.y, width: cell.noteField.frame.width, height: notefieldheight)
+        
         cell.noteTitle.text = "Note :"
         cell.noteTitle.textColor = UIColor.lightGray
         
-        cell.noteField.text = "Remember to give her that drug twice "
+        cell.noteField.text = "Remember to give her that drug twice, Remember to give her that drug twice "
         
         cell.noteField.textColor = UIColor.flatGray
-         
-         
+        cell.actionImage.image = UIImage(named: "icons8-pill-filled-48")
         
-     
+         print(cell.noteField.bounds.width) //207.5 initial width
+        var height = heightForView(text: cell.noteField.text!, font: cell.noteField.font, width: cell.noteField.bounds.width )
+       
+        print(height) //50.5
         
-          cell.actionImage.image = UIImage(named: "icons8-pill-filled-48")
+
+        
         
         return cell
     }
     func configureTableView(){
       taskTableView.rowHeight = UITableView.automaticDimension
       taskTableView.estimatedRowHeight = 200.0 //what will always be seen
+     
+       
     }
+  
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        taskTableView.rowHeight = UITableView.automaticDimension
+        taskTableView.estimatedRowHeight = 200.0 //what will always be seen
+      
+        
+        return 200
+    }
+    
+    //OBTAINING UPDATED HEIGHT OF NOTEFIELD LABEL ONCE IT HAS BEEN RESIZED
+    func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat{
+        
+        let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
+        label.numberOfLines = 0
+        label.lineBreakMode = NSLineBreakMode.byWordWrapping
+        label.font = font
+        label.text = text
+        
+        label.sizeToFit()
+        return label.frame.height
+    }
+    
  
+    
+    
+  
+
+    
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 4
+    }
+
 }
+
+
 
 
 // MARK: - Action View
