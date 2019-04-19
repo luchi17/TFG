@@ -15,20 +15,19 @@ import ChameleonFramework
 class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     @IBOutlet weak var sleep: ActionView!
-    @IBOutlet weak var sleepLabel: UILabel!
-    
+  
     @IBOutlet weak var feed: ActionView!
-    @IBOutlet weak var feedLabel: UILabel!
-    
+  
+    @IBOutlet weak var scrollView: UIScrollView!
     
     @IBOutlet weak var diaper: ActionView!
-    @IBOutlet weak var diaperLabel: UILabel!
-    
+
     @IBOutlet weak var medication: ActionView!
-    @IBOutlet weak var medicationLabel: UILabel!
-    
-    
+   
     @IBOutlet weak var grid: GridView!
+    
+    @IBOutlet weak var last24hours: UILabel!
+    @IBOutlet weak var upcomingTasks: UILabel!
     
 
     @IBOutlet weak var taskTableView: UITableView!
@@ -40,8 +39,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //print(sleep.bounds.height) //30
-        // print(sleep.bounds.width)  //240
+        
+        taskTableView.addGestureRecognizer(UISwipeGestureRecognizer(target: self, action: #selector(tableViewSwiped)))
+        scrollView.addGestureRecognizer(UISwipeGestureRecognizer(target: self, action: #selector(scrollViewSwiped)))
+
+        last24hours.textColor = UIColor.flatGray
+        upcomingTasks.textColor = UIColor.flatGray
         sleep.layer.cornerRadius = 6
         sleep.layer.masksToBounds = true
         feed.layer.cornerRadius = 6
@@ -56,10 +59,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         diaper.backgroundColor = diaper.diapercolor.withAlphaComponent(CGFloat(0.2))
         medication.backgroundColor = medication.medicationcolor.withAlphaComponent(CGFloat(0.2))
         
-        sleepLabel.textColor = sleep.sleepcolor
-        feedLabel.textColor = feed.feedcolor
-        diaperLabel.textColor = diaper.diapercolor
-        medicationLabel.textColor = medication.medicationcolor
         
         //grid.backgroundColor = UIColor.init(hexString: "EBEBEB", withAlpha: 0.01)!
         
@@ -71,37 +70,82 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         taskTableView.register(UINib(nibName: "CustomCellHome", bundle: nil), forCellReuseIdentifier: "customMessageCell")
        configureTableView()
     }
+    @objc func tableViewSwiped(){
+        scrollView.isScrollEnabled = false
+        taskTableView.isScrollEnabled = true
+    }
+    
+    @objc func scrollViewSwiped(){
+        scrollView.isScrollEnabled = true
+        taskTableView.isScrollEnabled = false
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-      return 1
+      return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //FOR EACH ROW, WHAT WE WANT THE CELLS TO LOOK LIKE
         //WE HAVE TO SPECIFY ALSO THE CLASS OF CELL TO BE ABLE TO USE THE PROPERTIES OF THAT CLASS
          // let cell = tableView.dequeueReusableCell(withIdentifier: "customMessageCell", for: indexPath) as! CustomCellHome
-          let cell2 = tableView.dequeueReusableCell(withIdentifier: "customMessageCell") as! CustomCellHome
-          cell2.actionName.text = "medication"
-          cell2.dateField.text = "24/12/2012"
-          cell2.dateTitle.text = "date"
-          cell2.quantityTitle.text = "quantity"
-          cell2.quantityField.text = "30 mg"
-          cell2.noteField.text = "na"
-          cell2.noteTitle.text = "note"
-          cell2.actionImage.image = UIImage(named: "icons8-pill-filled-48")
+          let cell = tableView.dequeueReusableCell(withIdentifier: "customMessageCell") as! CustomCellHome
         
-          cell2.inforDisplay.bounds.width
+            cell.inforDisplay.layer.borderColor = UIColor.flatGray.cgColor
+            cell.inforDisplay.layer.borderWidth = 0.8
+            //cell.inforDisplay.layer.backgroundColor = medication.medicationcolor.withAlphaComponent(CGFloat(0.05)).cgColor
+          cell.actionName.text = "Medication"
+          cell.actionName.textColor = medication.medicationcolor
         
+        cell.nameTitle.text = "Name :"
+          cell.nameTitle.textColor = UIColor.lightGray
         
         
+          cell.nameField.text = "Apiretal"
+          cell.nameField.textColor = UIColor.flatGray
         
         
-        return cell2
+        cell.dateTitle.text = "Date :"
+          cell.dateTitle.textColor = UIColor.lightGray
+        
+        cell.dateField.text = "24/12/2012 12:00"
+          cell.dateField.textColor = UIColor.flatGray
+        
+        cell.quantityTitle.text = "Quantity :"
+          cell.quantityTitle.textColor = UIColor.lightGray
+        
+          cell.quantityField.text = "30 mg"
+          cell.quantityField.textColor = UIColor.flatGray
+        
+        
+
+//        if  cell.quantityTitle.text!.isEqual("Quantity"){
+//            cell.stackViewTitles.removeArrangedSubview(cell.quantityTitle)
+//            cell.quantityTitle.removeFromSuperview()
+//            cell.stackViewFields.removeArrangedSubview(cell.quantityField)
+//            cell.quantityField.removeFromSuperview()
+//
+//        }
+        
+//        let notefieldheight = cell.noteField.optimalHeight
+//        cell.noteField.frame = CGRect(x: cell.noteField.frame.origin.x, y: cell.noteField.frame.origin.y, width: cell.noteField.frame.width, height: notefieldheight)
+        cell.noteTitle.text = "Note :"
+        cell.noteTitle.textColor = UIColor.lightGray
+        
+        cell.noteField.text = "Remember to give her that drug twice "
+        
+        cell.noteField.textColor = UIColor.flatGray
+         
+         
+        
+     
+        
+          cell.actionImage.image = UIImage(named: "icons8-pill-filled-48")
+        
+        return cell
     }
     func configureTableView(){
-        taskTableView.rowHeight = UITableView.automaticDimension
-       taskTableView.estimatedRowHeight = 120.0 //average message, if it is not correct, it will actually
-        //resize and use the constraints instead
+      taskTableView.rowHeight = UITableView.automaticDimension
+      taskTableView.estimatedRowHeight = 200.0 //what will always be seen
     }
  
 }

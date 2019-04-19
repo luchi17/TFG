@@ -7,31 +7,44 @@
 //
 
 import UIKit
+import ChameleonFramework
 
-class CustomCellHome: UITableViewCell {
+class CustomCellHome: UITableViewCell{
 
     
     @IBOutlet var actionImage: UIImageView!
     
     @IBOutlet var actionName: UILabel!
+
+    
+    @IBOutlet var nameTitle: UILabel!
+    @IBOutlet var nameField: UILabel!
     
     @IBOutlet var quantityTitle: UILabel!
     @IBOutlet var quantityField: UILabel!
+    
     
     @IBOutlet var dateTitle: UILabel!
     @IBOutlet var dateField: UILabel!
     
     @IBOutlet var noteTitle: UILabel!
-    @IBOutlet var noteField: UITextField!
+   
+    @IBOutlet var noteField: UILabel!
+    
+    @IBOutlet var stackViewTitles: UIStackView!
+    @IBOutlet var stackViewFields: UIStackView!
+    
     
     @IBOutlet var inforDisplay: UIView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code goes here
         
-        
+       
         
     }
+
+   
     /*
     // MARK: - Navigation
 
@@ -43,3 +56,5 @@ class CustomCellHome: UITableViewCell {
     */
 
 }
+
+
