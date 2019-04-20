@@ -20,6 +20,7 @@ class CustomCellHome: UITableViewCell{
     @IBOutlet var nameTitle: UILabel!
     @IBOutlet var nameField: UILabel!
     
+    
     @IBOutlet var quantityTitle: UILabel!
     @IBOutlet var quantityField: UILabel!
     
