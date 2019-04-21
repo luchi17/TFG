@@ -9,4 +9,5 @@ target 'Babydoc' do
 pod 'Charts'
 pod 'RealmSwift'
 pod 'ChameleonFramework/Swift', :git => 'https://github.com/ViccAlexander/Chameleon.git'
+pod 'ScrollableDatepicker', '~> 2.2'
 end

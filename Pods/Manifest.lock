@@ -10,17 +10,20 @@ PODS:
   - Realm/Headers (3.14.1)
   - RealmSwift (3.14.1):
     - Realm (= 3.14.1)
+  - ScrollableDatepicker (2.2.0)
 
 DEPENDENCIES:
   - ChameleonFramework/Swift (from `https://github.com/ViccAlexander/Chameleon.git`)
   - Charts
   - RealmSwift
+  - ScrollableDatepicker (~> 2.2)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Charts
     - Realm
     - RealmSwift
+    - ScrollableDatepicker
 
 EXTERNAL SOURCES:
   ChameleonFramework:
@@ -36,7 +39,8 @@ SPEC CHECKSUMS:
   Charts: f69cf0518b6d1d62608ca504248f1bbe0b6ae77e
   Realm: e12c9c2387d05c5bba3a9c394838f5870e85763b
   RealmSwift: a82eab9b04c3e1616082c7e17aa300740847769c
+  ScrollableDatepicker: 0f14e38bcd3517e6632220af11e47d29e0f982db
 
-PODFILE CHECKSUM: ab62e5c6dbf23b9a0e79705c1d6e2094153ce228
+PODFILE CHECKSUM: bab62a2a969ce864f5e4ea481574fcd552d88940
 
 COCOAPODS: 1.7.0.beta.3
