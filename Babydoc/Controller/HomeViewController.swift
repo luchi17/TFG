@@ -8,7 +8,7 @@
 
 import UIKit
 import ChameleonFramework
-
+import ScrollableDatepicker
 
 // MARK: - Home View Controller
 
@@ -24,10 +24,47 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
    
     @IBOutlet weak var grid: GridView!
     
-    @IBOutlet weak var last24hours: UILabel!
     @IBOutlet weak var upcomingTasks: UILabel!
     
 
+    
+    @IBOutlet weak var datePicker: ScrollableDatepicker!{
+        didSet {
+            var dates = [Date]()
+            for day in -15...15 {
+                dates.append(Date(timeIntervalSinceNow: Double(day * 86400)))
+            }
+            
+            datePicker.dates = dates
+            datePicker.selectedDate = Date()
+            datePicker.delegate = self as ScrollableDatepickerDelegate
+            
+            var configuration = Configuration()
+            
+            //configuration.defaultDayStyle.dateTextColor = UIColor.init(hexString: "555555")!
+            
+            // weekend customization
+
+            configuration.weekendDayStyle.dateTextColor = UIColor.black
+            configuration.weekendDayStyle.weekDayTextColor = UIColor.black
+            configuration.weekendDayStyle.weekDayTextFont = UIFont.boldSystemFont(ofSize: 8)
+            
+
+            configuration.selectedDayStyle.selectorColor = UIColor.flatMint
+                configuration.selectedDayStyle.dateTextColor = UIColor.flatMint
+            configuration.selectedDayStyle.dateTextFont = UIFont.boldSystemFont(ofSize: 20)
+            
+            // selected date customization
+            configuration.selectedDayStyle.backgroundColor = UIColor(white: 0.9, alpha: 0.25)
+            //configuration.selectedDayStyle.backgroundColor = UIColor.init(hexString: "37D4C0")?.withAlphaComponent(0.2)
+            configuration.daySizeCalculation = .numberOfVisibleItems(5)
+            
+            datePicker.configuration = configuration
+        }
+    }
+    
+    
+    
     @IBOutlet weak var taskTableView: UITableView!
     
     override var prefersStatusBarHidden: Bool {
@@ -37,10 +74,38 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
- 
+        
+        initialAppearance()
+        //related to calendar
+        
+        DispatchQueue.main.async {
+            self.showSelectedDate()
+            self.datePicker.scrollToSelectedDate(animated: false)
+        }
+        
+        //add button
+        
+        let button = UIButton(type: .contactAdd)
+        button.frame = CGRect(origin: CGPoint(x: self.view.frame.width-40, y: self.view.frame.size.height - 90), size: CGSize(width: 30, height: 30))
+        
+        self.tabBarController?.view.addSubview(button)
+        
+        //DATABASE RELATED
+        taskTableView.delegate = self
+        taskTableView.dataSource = self
+        taskTableView.separatorStyle = .none
+        //registering customcell here:
+       taskTableView.register(UINib(nibName: "CustomCellHome", bundle: nil), forCellReuseIdentifier: "customCellHome")
 
-        last24hours.textColor = UIColor.flatGray
-        upcomingTasks.textColor = UIColor.flatGray
+
+     
+    }
+    func initialAppearance (){
+        self.view.backgroundColor = UIColor.init(hexString: "F8F9F9")?.withAlphaComponent(CGFloat(0.995)) //EFEFF4
+        grid.backgroundColor = UIColor.init(hexString: "F8F9F9")?.withAlphaComponent(CGFloat(0.8))
+        taskTableView.backgroundColor = UIColor.init(hexString: "F8F9F9")?.withAlphaComponent(CGFloat(0.8))
+        
+        upcomingTasks.textColor = UIColor.init(hexString: "7F8484")!
         sleep.layer.cornerRadius = 6
         sleep.layer.masksToBounds = true
         feed.layer.cornerRadius = 6
@@ -54,20 +119,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         feed.backgroundColor = feed.feedcolor.withAlphaComponent(CGFloat(0.2))
         diaper.backgroundColor = diaper.diapercolor.withAlphaComponent(CGFloat(0.2))
         medication.backgroundColor = medication.medicationcolor.withAlphaComponent(CGFloat(0.2))
-        
-        
-        //grid.backgroundColor = UIColor.init(hexString: "EBEBEB", withAlpha: 0.01)!
-        
-        //DATABASE RELATED
-        taskTableView.delegate = self
-        taskTableView.dataSource = self
-        taskTableView.separatorStyle = .none
-        //registering customcell here:
-       taskTableView.register(UINib(nibName: "CustomCellHome", bundle: nil), forCellReuseIdentifier: "customCellHome")
-
-
-     
     }
+    
+    //MARK - RELATED WITH THE DATABASE METHODS
  
  
     
@@ -79,13 +133,16 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
         let cell = tableView.dequeueReusableCell(withIdentifier: "customCellHome") as! CustomCellHome
     
+        cell.backgroundColor = UIColor.init(hexString: "F8F9F9")?.withAlphaComponent(CGFloat(0.995))
         
-        cell.inforDisplay.layer.borderColor = UIColor.flatGray.cgColor
-        cell.inforDisplay.layer.borderWidth = 0.5
+        cell.inforDisplay.layer.borderColor = UIColor.lightGray.cgColor
+        cell.inforDisplay.layer.borderWidth = 0.3
         cell.inforDisplay.layer.cornerRadius = 6
        // cell.inforDisplay.layer.shadowRadius = 10
         cell.inforDisplay.layer.masksToBounds = true
-        cell.inforDisplay.layer.backgroundColor = medication.medicationcolor.withAlphaComponent(CGFloat(0.05)).cgColor
+        cell.inforDisplay.layer.backgroundColor = UIColor.white.cgColor
+            
+            //medication.medicationcolor.withAlphaComponent(CGFloat(0.05)).cgColor
         cell.actionName.text = "Medication"
         cell.actionName.textColor = medication.medicationcolor
         
@@ -94,20 +151,20 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         
         cell.nameField.text = "Apiretal"
-        cell.nameField.textColor = UIColor.flatGray
+        cell.nameField.textColor = UIColor.black
         
         
         cell.dateTitle.text = "Date :"
         cell.dateTitle.textColor = UIColor.lightGray
         
         cell.dateField.text = "24/12/2012 12:00"
-        cell.dateField.textColor = UIColor.flatGray
+        cell.dateField.textColor = UIColor.black
         
         cell.quantityTitle.text = "Quantity :"
         cell.quantityTitle.textColor = UIColor.lightGray
         
         cell.quantityField.text = "30 mg"
-        cell.quantityField.textColor = UIColor.flatGray
+        cell.quantityField.textColor = UIColor.black
         
         
         
@@ -123,10 +180,14 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.noteTitle.text = "Note :"
         cell.noteTitle.textColor = UIColor.lightGray
         
-        cell.noteField.text = "Remember to give her that drug twice, Remember to give her that drug twice"
+        cell.noteField.text = "Remember to give her that drug twice"
         
-        cell.noteField.textColor = UIColor.flatGray
+        cell.noteField.textColor = UIColor.black
         cell.actionImage.image = UIImage(named: "icons8-pill-filled-48")
+       // cell.actionImage.backgroundColor = UIColor.white
+        //cell.actionImage.layer.cornerRadius = 6
+        //cell.actionImage.layer.borderColor = UIColor.flatGray.cgColor
+        //cell.actionImage.layer.borderWidth = 0.3
      
         
         return cell
@@ -137,11 +198,21 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         taskTableView.estimatedRowHeight = 180.0
         
     }
+    fileprivate func showSelectedDate() {
+        guard datePicker.selectedDate != nil else {
+            return
+        }
+        
+    }
 
- 
+
+}
+extension HomeViewController: ScrollableDatepickerDelegate {
     
-
-
+    func datepicker(_ datepicker: ScrollableDatepicker, didSelectDate date: Date) {
+        showSelectedDate()
+    }
+    
 }
 
 
