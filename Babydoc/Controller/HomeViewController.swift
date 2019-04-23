@@ -12,7 +12,7 @@ import ScrollableDatepicker
 
 // MARK: - Home View Controller
 
-class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
+class HomeViewController: UIViewController{
     
     @IBOutlet weak var sleep: ActionView!
   
@@ -26,7 +26,15 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBOutlet weak var upcomingTasks: UILabel!
     
-
+    @IBOutlet weak var todaysRecord: UILabel!
+    
+    @IBOutlet weak var dateToday: UIButton!
+    
+    @IBOutlet weak var taskTableView: UITableView!
+    
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
     
     @IBOutlet weak var datePicker: ScrollableDatepicker!{
         didSet {
@@ -37,11 +45,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             datePicker.dates = dates
             datePicker.selectedDate = Date()
-            datePicker.delegate = self as ScrollableDatepickerDelegate
+            datePicker.delegate = self
             
             var configuration = Configuration()
-            
-            //configuration.defaultDayStyle.dateTextColor = UIColor.init(hexString: "555555")!
             
             // weekend customization
 
@@ -50,40 +56,60 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             configuration.weekendDayStyle.weekDayTextFont = UIFont.boldSystemFont(ofSize: 8)
             
 
-            configuration.selectedDayStyle.selectorColor = UIColor.flatMint
-                configuration.selectedDayStyle.dateTextColor = UIColor.flatMint
+            configuration.selectedDayStyle.selectorColor = UIColor.init(hexString: "3BB4C1")
+            configuration.selectedDayStyle.dateTextColor = UIColor.init(hexString: "3BB4C1")
+            //configuration.selectedDayStyle.weekDayTextColor = UIColor.init(hexString: "3BB4C1")
             configuration.selectedDayStyle.dateTextFont = UIFont.boldSystemFont(ofSize: 20)
             
-            // selected date customization
             configuration.selectedDayStyle.backgroundColor = UIColor(white: 0.9, alpha: 0.25)
-            //configuration.selectedDayStyle.backgroundColor = UIColor.init(hexString: "37D4C0")?.withAlphaComponent(0.2)
             configuration.daySizeCalculation = .numberOfVisibleItems(5)
             
             datePicker.configuration = configuration
         }
     }
     
+
     
-    
-    @IBOutlet weak var taskTableView: UITableView!
-    
-    override var prefersStatusBarHidden: Bool {
-        return true
+    @objc func buttonClicked() {
+        datePicker.selectedDate = Date()
+        datePicker.scrollToSelectedDate(animated: true)
+        showSelectedDate()
     }
   
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        initialAppearance()
-        //related to calendar
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd MMMM YYYY"
+        dateToday.setTitle(formatter.string(from: datePicker.selectedDate!), for: .normal)
+        dateToday.setTitleColor(UIColor.white, for: .normal)
+        dateToday.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
+        dateToday.backgroundColor = UIColor.init(hexString: "3BB4C1")
+        let spacing : CGFloat = 8.0
+        dateToday.contentEdgeInsets = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
+
+        dateToday.layer.cornerRadius = 2
+        dateToday.layer.masksToBounds = false
+        //dateToday.layer.shadowColor = UIColor.init(hexString: "3BB4C1")?.cgColor
+        dateToday.layer.shadowColor = UIColor.flatGray.cgColor
+        dateToday.layer.shadowOpacity = 0.8;
+        dateToday.layer.shadowRadius = 1;
+        dateToday.layer.shadowOffset = CGSize(width: 1.5, height: 1.5);
         
+        
+        dateToday.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
+       
+
+        
+        initialAppearance()
+
         DispatchQueue.main.async {
             self.showSelectedDate()
             self.datePicker.scrollToSelectedDate(animated: false)
         }
         
-        //add button
+        
         
         let button = UIButton(type: .contactAdd)
         button.frame = CGRect(origin: CGPoint(x: self.view.frame.width-40, y: self.view.frame.size.height - 90), size: CGSize(width: 30, height: 30))
@@ -94,25 +120,26 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         taskTableView.delegate = self
         taskTableView.dataSource = self
         taskTableView.separatorStyle = .none
-        //registering customcell here:
-       taskTableView.register(UINib(nibName: "CustomCellHome", bundle: nil), forCellReuseIdentifier: "customCellHome")
+        
+        taskTableView.register(UINib(nibName: "CustomCellHome", bundle: nil), forCellReuseIdentifier: "customCellHome")
 
 
      
     }
     func initialAppearance (){
-        self.view.backgroundColor = UIColor.init(hexString: "F8F9F9")?.withAlphaComponent(CGFloat(0.995)) //EFEFF4
+        self.view.backgroundColor = UIColor.init(hexString: "F8F9F9")?.withAlphaComponent(CGFloat(0.995))
         grid.backgroundColor = UIColor.init(hexString: "F8F9F9")?.withAlphaComponent(CGFloat(0.8))
         taskTableView.backgroundColor = UIColor.init(hexString: "F8F9F9")?.withAlphaComponent(CGFloat(0.8))
         
         upcomingTasks.textColor = UIColor.init(hexString: "7F8484")!
-        sleep.layer.cornerRadius = 6
+        todaysRecord.textColor = UIColor.init(hexString: "7F8484")!
+        sleep.layer.cornerRadius = 4
         sleep.layer.masksToBounds = true
-        feed.layer.cornerRadius = 6
+        feed.layer.cornerRadius = 4
         feed.layer.masksToBounds = true
-        diaper.layer.cornerRadius = 6
+        diaper.layer.cornerRadius = 4
         diaper.layer.masksToBounds = true
-        medication.layer.cornerRadius = 6
+        medication.layer.cornerRadius = 4
         medication.layer.masksToBounds = true
         
         sleep.backgroundColor = sleep.sleepcolor.withAlphaComponent(CGFloat(0.2))
@@ -120,29 +147,43 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         diaper.backgroundColor = diaper.diapercolor.withAlphaComponent(CGFloat(0.2))
         medication.backgroundColor = medication.medicationcolor.withAlphaComponent(CGFloat(0.2))
     }
+
     
-    //MARK - RELATED WITH THE DATABASE METHODS
- 
- 
+    
+   
+
+
+}
+
+//MARK - ScrollableDatePicker and TableView methods
+extension HomeViewController: ScrollableDatepickerDelegate {
+    
+    func datepicker(_ datepicker: ScrollableDatepicker, didSelectDate date: Date) {
+        showSelectedDate()
+    }
+    fileprivate func showSelectedDate() {
+        guard datePicker.selectedDate != nil else {
+            return
+        }
+
+        
+    }
+    
+    
+    
+}
+extension HomeViewController :  UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-      return 2
+        return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "customCellHome") as! CustomCellHome
-    
+        
         cell.backgroundColor = UIColor.init(hexString: "F8F9F9")?.withAlphaComponent(CGFloat(0.995))
         
-        cell.inforDisplay.layer.borderColor = UIColor.lightGray.cgColor
-        cell.inforDisplay.layer.borderWidth = 0.3
-        cell.inforDisplay.layer.cornerRadius = 6
-       // cell.inforDisplay.layer.shadowRadius = 10
-        cell.inforDisplay.layer.masksToBounds = true
-        cell.inforDisplay.layer.backgroundColor = UIColor.white.cgColor
-            
-            //medication.medicationcolor.withAlphaComponent(CGFloat(0.05)).cgColor
         cell.actionName.text = "Medication"
         cell.actionName.textColor = medication.medicationcolor
         
@@ -184,37 +225,20 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         cell.noteField.textColor = UIColor.black
         cell.actionImage.image = UIImage(named: "icons8-pill-filled-48")
-       // cell.actionImage.backgroundColor = UIColor.white
-        //cell.actionImage.layer.cornerRadius = 6
-        //cell.actionImage.layer.borderColor = UIColor.flatGray.cgColor
-        //cell.actionImage.layer.borderWidth = 0.3
-     
+        
+        
         
         return cell
     }
-
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         taskTableView.rowHeight = UITableView.automaticDimension
         taskTableView.estimatedRowHeight = 180.0
         
     }
-    fileprivate func showSelectedDate() {
-        guard datePicker.selectedDate != nil else {
-            return
-        }
-        
-    }
-
-
-}
-extension HomeViewController: ScrollableDatepickerDelegate {
-    
-    func datepicker(_ datepicker: ScrollableDatepicker, didSelectDate date: Date) {
-        showSelectedDate()
-    }
     
 }
-
 
 
 
@@ -225,61 +249,59 @@ class ActionView: UIView
     
 {
     
-    var sleepcolor :UIColor = UIColor.init(hexString: "2772db")! //2772db
-    var feedcolor :UIColor = UIColor.init(hexString: "85ef47")! //12cc94
-    var diapercolor :UIColor = UIColor.init(hexString: "37D4C0")! //85ef47, 29cdb5, 
+    var sleepcolor :UIColor = UIColor.init(hexString: "2772db")!
+    var feedcolor :UIColor = UIColor.init(hexString: "85ef47")!
+    var diapercolor :UIColor = UIColor.init(hexString: "37D4C0")!
     var medicationcolor :UIColor = UIColor.init(hexString: "F81B9A")!
- 
+   
     
-    override func draw(_ rect: CGRect)
-    {
-        let width = self.bounds.width
-        let day : CGFloat = 24
-            //SLEEP
-        if self.tag == 0{
-            
-            //imagine sleep times of : 0-12  and 12:30 to 13:30 and 15-17
-            fillColor(start : (0*width)/day ,with: sleepcolor, width: (2*width)/day)
-            fillColor(start : ((12+0.5)*width)/day ,with: sleepcolor , width: (1*width)/day)
-            fillColor(start : (15*width)/day ,with: sleepcolor , width: (2*width)/day)
-            
-        }
-            //FEED
-        else if self.tag == 1{
-          
-            
-            self.fillColor(start : (12*width)/day, with: feedcolor, width: 4*width/day)
-            self.fillColor(start : (22*width)/day, with: feedcolor, width: 2*width/day)
-        }
-            //DIAPER
-        else if self.tag == 2{
-            
-            self.fillColor(start : (10*width)/day, with: diapercolor , width: 0.2*width/day)
-            self.fillColor(start : (20*width)/day, with: diapercolor, width: 0.3*width/day)
-        }
-            //MEDICATION
-        else if self.tag == 3{
-            
-    
-            self.fillColor(start : (8*width)/day, with: medicationcolor, width: 0.2*width/day)
-            self.fillColor(start : (16*width)/day, with: medicationcolor, width: 0.2*width/day)
-        }
-        
-        
-        
-        
-    }
     
     func fillColor(start : CGFloat,with color:UIColor,width:CGFloat)
     {
         let topRect = CGRect(x : start, y:0, width : width, height: self.bounds.height)
         color.setFill()
         UIRectFill(topRect)
+        
     }
-
     
+    override func draw(_ rect: CGRect)
+    {
+        let width = self.bounds.width
+        let day : CGFloat = 24
+            //SLEEP
+        
+        switch self.tag {
+      
+        case 0:
 
+            fillColor(start : (0*width)/day ,with: sleepcolor, width: (2*width)/day)
+            fillColor(start : ((12+0.5)*width)/day ,with: sleepcolor , width: (1*width)/day)
+            fillColor(start : (15*width)/day ,with: sleepcolor , width: (2*width)/day)
+            
+            //FEED
+        case 1:
+            
+            self.fillColor(start : (12*width)/day, with: feedcolor, width: 4*width/day)
+            self.fillColor(start : (22*width)/day, with: feedcolor, width: 2*width/day)
+        
+            //DIAPER
+        case 2:
+            
+            self.fillColor(start : (10*width)/day, with: diapercolor , width: 0.2*width/day)
+            self.fillColor(start : (20*width)/day, with: diapercolor, width: 0.3*width/day)
+        
+            //MEDICATION
+        case 3:
+    
+            self.fillColor(start : (8*width)/day, with: medicationcolor, width: 0.2*width/day)
+            self.fillColor(start : (16*width)/day, with: medicationcolor, width: 0.2*width/day)
+        
+        
+        default:
+            print("TAG NOT FOUND")
+        }
 
+}
 }
 
 // MARK: - Grid View
@@ -288,7 +310,7 @@ class GridView: UIView
     
 {
     private var path = UIBezierPath()
-    //private var pathline = UIBezierPath()
+
     fileprivate var gridWidthMultiple: CGFloat
     {
         return 4
@@ -324,7 +346,6 @@ class GridView: UIView
             path.move(to: start)
             path.addLine(to: end)
         }
-        //Close the path.
         path.close()
         
     }
@@ -336,8 +357,40 @@ class GridView: UIView
         // Specify a border (stroke) color.
         UIColor.black.setStroke()
         path.stroke()
+       
     }
+
   
+}
+// MARK: - Grid View
+
+class RoundShadowView: UIView {
+    
+    private var shadowLayer: CAShapeLayer!
+    private var cornerRadius: CGFloat = 2.0
+    private var fillcolor : UIColor = UIColor.white
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        self.layer.masksToBounds = false
+        self.layer.backgroundColor = UIColor.clear.cgColor
+        
+        if shadowLayer == nil {
+            shadowLayer = CAShapeLayer()
+            
+            shadowLayer.path = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
+            shadowLayer.fillColor = fillcolor.cgColor
+            
+            shadowLayer.shadowColor = UIColor.flatGray.cgColor
+            shadowLayer.shadowPath = shadowLayer.path
+            shadowLayer.shadowOffset = CGSize(width: 0.0, height: 1.0)
+            shadowLayer.shadowOpacity = 0.8
+            shadowLayer.shadowRadius = 1
+            
+            layer.insertSublayer(shadowLayer, at: 0)
+        }
+    }
 }
 
 

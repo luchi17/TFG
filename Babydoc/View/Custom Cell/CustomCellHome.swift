@@ -36,7 +36,7 @@ class CustomCellHome: UITableViewCell{
     @IBOutlet var stackViewFields: UIStackView!
     
     
-    @IBOutlet var inforDisplay: UIView!
+    @IBOutlet var inforDisplay: RoundShadowView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code goes here
